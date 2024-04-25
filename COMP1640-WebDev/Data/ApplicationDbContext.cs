@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿using COMP1640_WebDev.Models;
 using COMP1640_WebDev.Ultils;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
