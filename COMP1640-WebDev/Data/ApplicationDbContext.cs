@@ -1,10 +1,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿using COMP1640_WebDev.Models;
 using COMP1640_WebDev.Ultils;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+=======
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+>>>>>>> parent of 3d53449 (Add role class, and seeding roles to database)
 =======
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 >>>>>>> parent of 3d53449 (Add role class, and seeding roles to database)
@@ -24,6 +28,7 @@ public class ApplicationDbContext : IdentityDbContext<User>
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -133,12 +138,17 @@ public class ApplicationDbContext : IdentityDbContext<User>
 >>>>>>> parent of 3d53449 (Add role class, and seeding roles to database)
 =======
 >>>>>>> parent of 3d53449 (Add role class, and seeding roles to database)
+=======
+>>>>>>> parent of 3d53449 (Add role class, and seeding roles to database)
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 3d53449 (Add role class, and seeding roles to database)
+=======
 >>>>>>> parent of 3d53449 (Add role class, and seeding roles to database)
 =======
 >>>>>>> parent of 3d53449 (Add role class, and seeding roles to database)
