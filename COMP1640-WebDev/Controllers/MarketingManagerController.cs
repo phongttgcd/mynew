@@ -14,6 +14,7 @@ using System.IO.Compression;
 namespace COMP1640_WebDev.Controllers
 {
 
+<<<<<<< HEAD
 	[Authorize(Roles = "Marketing Manager")]
 	public class MarketingManagerController(IWebHostEnvironment hostEnvironment, IMagazineRepository magazineRepository, IAcademicYearRepository academicYearRepository, IFacultyRepository facultyRepository) : Controller
 	{
@@ -31,6 +32,36 @@ namespace COMP1640_WebDev.Controllers
 		public async Task<IActionResult> DetailsMagazine(string id)
 		{
 			var magazineInDb = await _magazineRepository.GetMagazineByID(id);
+=======
+    [Authorize(Roles = "Marketing Manager")]
+    public class MarketingManagerController : Controller
+    {
+        private readonly IMagazineRepository _magazineRepository;
+		private readonly IAcademicYearRepository _academicYearRepository;
+		private readonly IFacultyRepository _facultyRepository;
+        private readonly IWebHostEnvironment _hostEnvironment;
+
+        public MarketingManagerController(IWebHostEnvironment hostEnvironment, IMagazineRepository magazineRepository, IAcademicYearRepository academicYearRepository, IFacultyRepository facultyRepository)
+        {
+            _magazineRepository = magazineRepository;
+			_academicYearRepository = academicYearRepository;
+            _facultyRepository = facultyRepository;
+            _hostEnvironment = hostEnvironment;
+        }
+
+
+        public IActionResult Index()
+        {
+
+            return View();
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DetailsMagazine(string id)
+        {
+            var magazineInDb = await _magazineRepository.GetMagazineByID(id);
+>>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 
 			string imageBase64Data = Convert.ToBase64String(magazineInDb.CoverImage!);
 			string image = string.Format("data:image/jpg;base64, {0}", imageBase64Data);
@@ -60,6 +91,8 @@ namespace COMP1640_WebDev.Controllers
 			var magazineViewModel = _magazineRepository.GetMagazineViewModel();
 			return View(magazineViewModel);
 		}
+
+
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
@@ -99,6 +132,8 @@ namespace COMP1640_WebDev.Controllers
 			return View(magazineViewModel);
 		}
 
+
+
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> EditMagazine(MagazineViewModel mViewModel)
@@ -123,6 +158,7 @@ namespace COMP1640_WebDev.Controllers
 			return View(magazineViewModel);
 		}
 
+<<<<<<< HEAD
 		[HttpGet]
 		public async Task<IActionResult> DeleteMagazine(string id)
 		{
@@ -148,6 +184,19 @@ namespace COMP1640_WebDev.Controllers
 									  .ToList();
 			return View(fileModels);
 		}
+=======
+
+		// 2.Download file
+		public IActionResult DataManagement()
+        {
+            var uploadsPath = Path.Combine(_hostEnvironment.WebRootPath, "images");
+            var fileModels = Directory.GetFiles(uploadsPath)
+                                      .Select(file => Path.GetFileName(file)) // Use LINQ to select file names
+                                      .ToList();       
+
+            return View(fileModels);
+        }
+>>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 
 
 		public IActionResult DownloadZip1()
@@ -162,6 +211,7 @@ namespace COMP1640_WebDev.Controllers
 				System.IO.File.Delete(tempZipPath);
 			}
 
+<<<<<<< HEAD
 			using (var zipStream = new FileStream(tempZipPath, FileMode.CreateNew))
 			using (var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, true))
 			{
@@ -186,6 +236,35 @@ namespace COMP1640_WebDev.Controllers
 			{
 				return BadRequest("Invalid file name.");
 			}
+=======
+            using (var zipStream = new FileStream(tempZipPath, FileMode.CreateNew))
+            using (var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, true))
+            {
+                var files = Directory.GetFiles(uploadsPath);
+                foreach (var filePath in files)
+                {
+                    var fileInfo = new FileInfo(filePath);
+                    var entry = archive.CreateEntry(fileInfo.Name);
+                    using (var entryStream = entry.Open())
+                    using (var fileStream = System.IO.File.OpenRead(filePath))
+                    {
+                        fileStream.CopyTo(entryStream);
+                    }
+                }
+            }
+
+            return PhysicalFile(tempZipPath, "application/zip", tempZipFileName);
+        }
+
+    
+
+        public IActionResult DownloadSingleFile(string file)
+        {
+            if (string.IsNullOrEmpty(file))
+            {
+                return BadRequest("Invalid file name.");
+            }
+>>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 
 			var uploadsPath = Path.Combine(_hostEnvironment.WebRootPath, "images");
 

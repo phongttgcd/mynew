@@ -16,6 +16,7 @@ namespace COMP1640_WebDev.Controllers
 {
 
 	[Authorize(Roles = "Student")]
+<<<<<<< HEAD
 	public class StudentController(IWebHostEnvironment hostEnvironment, IMagazineRepository magazineRepository, IAcademicYearRepository academicYearRepository, UserManager<User> userManager, IContributionRepository contributionRepository, IUserRepository userRepository) : Controller
 	{
 		private readonly IContributionRepository _contributionRepository = contributionRepository;
@@ -25,6 +26,32 @@ namespace COMP1640_WebDev.Controllers
 		private readonly IUserRepository _userRepository = userRepository;
 		private readonly IWebHostEnvironment _hostEnvironment = hostEnvironment;
 		public async Task<IActionResult> Index()
+=======
+
+	public class StudentController : Controller
+	{
+		private readonly IContributionRepository _contributionRepository;
+		private readonly IAcademicYearRepository _academicYearRepository;
+		private readonly IFacultyRepository _facultyRepository;
+		private readonly IMagazineRepository _magazineRepository;
+		private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly UserManager<User> _userManager;
+		private readonly IUserRepository _userRepository;
+
+		public StudentController(IMagazineRepository magazineRepository,IWebHostEnvironment hostEnvironment, IAcademicYearRepository academicYearRepository, UserManager<User> userManager,  IContributionRepository contributionRepository, IUserRepository userRepository, IFacultyRepository facultyRepository)
+		{
+			_hostEnvironment = hostEnvironment;
+			_contributionRepository = contributionRepository;
+			_academicYearRepository = academicYearRepository;
+			_userRepository = userRepository;
+            _facultyRepository = facultyRepository;
+            _userManager = userManager;
+			_magazineRepository = magazineRepository;
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> IndexAsync()
+>>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 		{
 			List<MagazineTableView> magazines;
 			var user = await _userManager.GetUserAsync(User);
@@ -33,15 +60,48 @@ namespace COMP1640_WebDev.Controllers
 			return View(magazines);
 		}
 
+<<<<<<< HEAD
 		[HttpGet]
 		public async Task<IActionResult> Details(string id)
+=======
+        /*[HttpGet]
+        public async Task<IActionResult> AddCommentAsync()
+        {
+
+        }*/
+
+        // Method to handle the submission of a new comment
+        [HttpPost]
+        public async Task<IActionResult> AddComment(CreateContribute data, List<IFormFile> files)
+>>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 		{
 			var magazineInDb = await _magazineRepository.GetMagazineByID(id);
 			var contributions = await _contributionRepository.GetContributionsAccept();
 
+<<<<<<< HEAD
 			string imageBase64Data = Convert.ToBase64String(magazineInDb.CoverImage!);
 			string image = string.Format("data:image/jpg;base64, {0}", imageBase64Data);
 			@ViewBag.AcademicYearId = magazineInDb.AcademicYearId;
+=======
+			Contribution contri = new();
+			var user = await _userRepository.GetUser(userId);
+			var academicYear = await _academicYearRepository.GetAcademicYear(data.AcademicYearId);
+
+           
+			using (var memoryStream = new MemoryStream())
+			{
+				await files[0].CopyToAsync(memoryStream);
+				contri.AcademicYearId = data.AcademicYearId;
+                contri.Title = data.Title;
+                contri.Document = data.Document;
+                contri.UserId = userId;
+                contri.Image =  memoryStream.ToArray();
+                contri.IsEnabled = true;
+			};
+			if (DateTime.Now > academicYear.ClosureDate)
+			{
+				contri.IsEnabled = false;
+>>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 
 			@ViewBag.Magazine = magazineInDb;
 			@ViewBag.Image = image;
@@ -55,6 +115,7 @@ namespace COMP1640_WebDev.Controllers
 
 
 			return View();
+<<<<<<< HEAD
 		}
 
 		[HttpPost]
@@ -142,6 +203,9 @@ namespace COMP1640_WebDev.Controllers
 		//    return View();
 		//}
 
+=======
+        }
+>>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 		[HttpGet]
 		public async Task<IActionResult> EditComment(string id)
 		{
@@ -169,5 +233,12 @@ namespace COMP1640_WebDev.Controllers
 			}
 			return View(updateContribution);
 		}
+
 	}
+<<<<<<< HEAD
 }
+=======
+
+
+}
+>>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
