@@ -18,7 +18,6 @@ namespace COMP1640_WebDev.Controllers
 	[Authorize(Roles = "Student")]
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
 	public class StudentController(IWebHostEnvironment hostEnvironment, IMagazineRepository magazineRepository, IAcademicYearRepository academicYearRepository, UserManager<User> userManager, IContributionRepository contributionRepository, IUserRepository userRepository) : Controller
 	{
 		private readonly IContributionRepository _contributionRepository = contributionRepository;
@@ -32,11 +31,6 @@ namespace COMP1640_WebDev.Controllers
 
 	public class StudentController : Controller
 	{
-=======
-
-	public class StudentController : Controller
-	{
->>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 =======
 
 	public class StudentController : Controller
@@ -74,12 +68,9 @@ namespace COMP1640_WebDev.Controllers
 
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
 		[HttpGet]
 		public async Task<IActionResult> Details(string id)
 =======
-=======
->>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 =======
 >>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
         /*[HttpGet]
@@ -133,7 +124,6 @@ namespace COMP1640_WebDev.Controllers
 
 
 			return View();
-<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		}
@@ -229,9 +219,6 @@ namespace COMP1640_WebDev.Controllers
 =======
         }
 >>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
-=======
-        }
->>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 		[HttpGet]
 		public async Task<IActionResult> EditComment(string id)
 		{
@@ -263,11 +250,6 @@ namespace COMP1640_WebDev.Controllers
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-
->>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 =======
 
 

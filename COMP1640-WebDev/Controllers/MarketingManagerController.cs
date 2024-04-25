@@ -16,7 +16,6 @@ namespace COMP1640_WebDev.Controllers
 
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
 	[Authorize(Roles = "Marketing Manager")]
 	public class MarketingManagerController(IWebHostEnvironment hostEnvironment, IMagazineRepository magazineRepository, IAcademicYearRepository academicYearRepository, IFacultyRepository facultyRepository) : Controller
 	{
@@ -43,16 +42,6 @@ namespace COMP1640_WebDev.Controllers
 		private readonly IFacultyRepository _facultyRepository;
         private readonly IWebHostEnvironment _hostEnvironment;
 
-=======
-    [Authorize(Roles = "Marketing Manager")]
-    public class MarketingManagerController : Controller
-    {
-        private readonly IMagazineRepository _magazineRepository;
-		private readonly IAcademicYearRepository _academicYearRepository;
-		private readonly IFacultyRepository _facultyRepository;
-        private readonly IWebHostEnvironment _hostEnvironment;
-
->>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 =======
     [Authorize(Roles = "Marketing Manager")]
     public class MarketingManagerController : Controller
@@ -182,7 +171,6 @@ namespace COMP1640_WebDev.Controllers
 
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
 		[HttpGet]
 		public async Task<IActionResult> DeleteMagazine(string id)
 		{
@@ -209,8 +197,6 @@ namespace COMP1640_WebDev.Controllers
 			return View(fileModels);
 		}
 =======
-=======
->>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 =======
 >>>>>>> parent of a982cff (Refactor Marketing Manager and Student Controller)
 
