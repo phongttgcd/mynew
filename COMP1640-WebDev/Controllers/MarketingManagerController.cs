@@ -14,17 +14,28 @@ namespace COMP1640_WebDev.Controllers
 {
 
     [Authorize(Roles = "Marketing Manager")]
-    public class MarketingManagerController(IWebHostEnvironment hostEnvironment, IMagazineRepository magazineRepository, IAcademicYearRepository academicYearRepository, IFacultyRepository facultyRepository) : Controller
+    public class MarketingManagerController : Controller
     {
-        private readonly IMagazineRepository _magazineRepository = magazineRepository;
-		private readonly IAcademicYearRepository _academicYearRepository = academicYearRepository;
-		private readonly IFacultyRepository _facultyRepository = facultyRepository;
-        private readonly IWebHostEnvironment _hostEnvironment = hostEnvironment;
+        private readonly IMagazineRepository _magazineRepository;
+		private readonly IAcademicYearRepository _academicYearRepository;
+		private readonly IFacultyRepository _facultyRepository;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-		public IActionResult Index()
+        public MarketingManagerController(IWebHostEnvironment hostEnvironment, IMagazineRepository magazineRepository, IAcademicYearRepository academicYearRepository, IFacultyRepository facultyRepository)
         {
+            _magazineRepository = magazineRepository;
+			_academicYearRepository = academicYearRepository;
+            _facultyRepository = facultyRepository;
+            _hostEnvironment = hostEnvironment;
+        }
+
+
+        public IActionResult Index()
+        {
+
             return View();
         }
+
 
         [HttpGet]
         public async Task<IActionResult> DetailsMagazine(string id)
@@ -51,6 +62,8 @@ namespace COMP1640_WebDev.Controllers
 			var magazineViewModel = _magazineRepository.GetMagazineViewModel();
             return View(magazineViewModel);
 		}
+
+
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
@@ -89,6 +102,8 @@ namespace COMP1640_WebDev.Controllers
 			return View(magazineViewModel);
 		}
 
+
+
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> EditMagazine(MagazineViewModel mViewModel)
@@ -113,12 +128,15 @@ namespace COMP1640_WebDev.Controllers
 			return View(magazineViewModel);
 		}
 
+
+		// 2.Download file
 		public IActionResult DataManagement()
         {
             var uploadsPath = Path.Combine(_hostEnvironment.WebRootPath, "images");
             var fileModels = Directory.GetFiles(uploadsPath)
-                                      .Select(file => Path.GetFileName(file))
+                                      .Select(file => Path.GetFileName(file)) // Use LINQ to select file names
                                       .ToList();       
+
             return View(fileModels);
         }
 
@@ -150,8 +168,11 @@ namespace COMP1640_WebDev.Controllers
                     }
                 }
             }
+
             return PhysicalFile(tempZipPath, "application/zip", tempZipFileName);
         }
+
+    
 
         public IActionResult DownloadSingleFile(string file)
         {
